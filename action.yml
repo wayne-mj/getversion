@@ -1,0 +1,17 @@
+name: Get Version
+description: Get the version of the project
+inputs:
+  version-format:
+    description: 'The format of the returned version'
+    required: false
+    default: 'without-v'
+    # Valid options are:
+    # without-v: 1.0.0
+    # with-v: v1.0.0
+    
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
+outputs:
+  release_version:
+    description: 'The extracted version of the release from the git tag'
