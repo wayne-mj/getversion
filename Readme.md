@@ -7,6 +7,7 @@ A small attempt to write a custom Github Action to return the version of my rele
 To further expand on the learning exercise, I have added testing.  
 
 > The SDLC (Software Development Life Cycle) when I originally learnt programming was a little different, testing was done less formally. 
+> Actually, I should say it was taught as an after thought.
 
 Example usage:
 
