@@ -4,6 +4,10 @@ A small attempt to write a custom Github Action to return the version of my rele
 
 *Essentially* a learning exercise in NodeJS, Github Actions, and can I do it.
 
+To further expand on the learning exercise, I have added testing.  
+
+> The SDLC (Software Development Life Cycle) when I originally learnt programming was a little different, testing was done less formally. 
+
 Example usage:
 
 ```yml
