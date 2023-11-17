@@ -28520,6 +28520,44 @@ getVersionTag
 
 /***/ }),
 
+/***/ 4766:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const core = __nccwpck_require__(3811);
+const github = __nccwpck_require__(8962);
+const GetVersion = __nccwpck_require__(2766);
+
+if (require.main === require.cache[eval('__filename')])
+{
+    main();
+}
+
+module.exports = main;
+
+function main()
+{
+    try
+    {
+        if (GetVersion.checkVersionTag(github.context, core))
+        {
+            let versionFormat = core.getInput('version-format');
+            let version = GetVersion.getVersionTag(github.context, versionFormat);
+            core.setOutput("release_version", version);
+            core.notice(`Release version found: release_version ${version} using format: version-format ${versionFormat}`);
+        }
+        else
+        {
+            core.notice('No version tag found.');
+        }
+    }
+    catch (error)
+    {
+        core.setFailed(error.message);
+    }
+}
+
+/***/ }),
+
 /***/ 9491:
 /***/ ((module) => {
 
@@ -30401,29 +30439,12 @@ module.exports = parseParams
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
-const core = __nccwpck_require__(3811);
-const github = __nccwpck_require__(8962);
-const GetVersion = __nccwpck_require__(2766);
-
-try
-{
-    if (GetVersion.checkVersionTag(github.context, core))
-    {
-        let versionFormat = core.getInput('version-format');
-        let version = GetVersion.getVersionTag(github.context, versionFormat);
-        core.setOutput("release_version", version);
-        core.notice(`Release version found: release_version ${version} using format: version-format ${versionFormat}`);
-    }
-}
-catch (error)
-{
-    core.setFailed(error.message);
-}
-})();
-
-module.exports = __webpack_exports__;
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = __nccwpck_require__(4766);
+/******/ 	module.exports = __webpack_exports__;
+/******/ 	
 /******/ })()
 ;

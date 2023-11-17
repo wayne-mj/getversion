@@ -2,17 +2,31 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const GetVersion = require('./checkversiontag');
 
-try
+if (require.main === module)
 {
-    if (GetVersion.checkVersionTag(github.context, core))
-    {
-        let versionFormat = core.getInput('version-format');
-        let version = GetVersion.getVersionTag(github.context, versionFormat);
-        core.setOutput("release_version", version);
-        core.notice(`Release version found: release_version ${version} using format: version-format ${versionFormat}`);
-    }
+    main();
 }
-catch (error)
+
+module.exports = main;
+
+function main()
 {
-    core.setFailed(error.message);
+    try
+    {
+        if (GetVersion.checkVersionTag(github.context, core))
+        {
+            let versionFormat = core.getInput('version-format');
+            let version = GetVersion.getVersionTag(github.context, versionFormat);
+            core.setOutput("release_version", version);
+            core.notice(`Release version found: release_version ${version} using format: version-format ${versionFormat}`);
+        }
+        else
+        {
+            core.notice('No version tag found.');
+        }
+    }
+    catch (error)
+    {
+        core.setFailed(error.message);
+    }
 }
