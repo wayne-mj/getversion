@@ -15,7 +15,7 @@ function main()
 {
     try
     {
-        if (GetVersion.checkVersionTag(github.context, core))
+        if (GetVersion.checkVersionTag(github.context))
         {
             let versionFormat = core.getInput('version-format');
             let version = GetVersion.getVersionTag(github.context, versionFormat);

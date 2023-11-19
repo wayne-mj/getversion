@@ -1,16 +1,8 @@
-// Check for the presence of the version tag
-function checkVersionTag(ghcontext, ghcore)
-{
-    // const { ref } = ghcontext;
+const semver = require('semver');
 
-    // if (ref && ref.startsWith('refs/tags/')) {
-    //     // This is a tag event, and you can proceed with your logic
-    //     //ghcore.info('A version tag exists.');
-    //     return true;
-    // } else {
-    //     //ghcore.info('No version tag found.');
-    //     return false;
-    // }
+// Check for the presence of the version tag
+function checkVersionTag(ghcontext)
+{
     if (ghcontext.ref && ghcontext.ref.startsWith('refs/tags/'))
     {
         return true;
@@ -21,12 +13,47 @@ function checkVersionTag(ghcontext, ghcore)
     }
 }
 
+// Read the version tag
+function readVersionTag(ghcontext)
+{
+    let versionTag = ghcontext.ref.replace("refs/tags/", "");
+    versionTag = versionTag.replace("v", "");
+    return versionTag;
+}
+
+// Verify that the version tag is a valid semver
+function verifyVersionTag(versionTag)
+{
+    if (semver.valid(versionTag))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+// Sanitise the version tag to a valid semver
+function sanitiseVersionTag(versionTag)
+{
+   return semver.valid(semver.coerce(versionTag)); 
+}
+
 // Get the version tag
 function getVersionTag(ghcontext, versionFormat)
 {
-    const { ref } = ghcontext;
-    const tagName = ref.replace('refs/tags/', '');
-    const tagVersion = tagName.replace('v', '');
+    // const { ref } = ghcontext;
+    // const tagName = ref.replace('refs/tags/', '');
+    // const tagVersion = tagName.replace('v', '');
+    let tagVersion = readVersionTag(ghcontext);
+    
+    // Attempt to sanitise the version tag
+    if (!verifyVersionTag(tagVersion))
+    {
+        tagVersion = sanitiseVersionTag(tagVersion);
+    }
+
     let formattedVersion = "";
 
     switch (versionFormat)
@@ -43,9 +70,13 @@ function getVersionTag(ghcontext, versionFormat)
     }
 
     return formattedVersion;
+    
 }
 
 module.exports = {
 checkVersionTag,
-getVersionTag
+getVersionTag,
+readVersionTag,
+verifyVersionTag,
+sanitiseVersionTag
 };
