@@ -23,9 +23,14 @@ const options = {
 }
 
 // Test the checkVersionTag function
-test('Test checkVersionTag', async () => {
+test('Test checkVersionTag refs/tags/v1.0.0', async () => {
     const result = CheckVersionTag.checkVersionTag(github.context);
     expect(result).toBe(true);
+});
+
+test('Test checkVersionTag refs/head/main', async () => {
+  const result = CheckVersionTag.checkVersionTag('refs/head/main');
+  expect(result).toBe(false);
 });
 
 test('getVersionTag() returns the version tag from the ref', async () => {
