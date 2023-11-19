@@ -9,6 +9,8 @@ To further expand on the learning exercise, I have added testing.
 > The SDLC (Software Development Life Cycle) when I originally learnt programming was a little different, testing was done less formally. 
 > Actually, I should say it was taught as an after thought.
 
+I have added primitive semver support to checking if the versioning is x.y.z or is in a format that can be formatted usefully.
+
 Example usage:
 
 ```yml
