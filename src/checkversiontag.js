@@ -1,14 +1,22 @@
 // Check for the presence of the version tag
 function checkVersionTag(ghcontext, ghcore)
 {
-    const { ref } = ghcontext;
+    // const { ref } = ghcontext;
 
-    if (ref && ref.startsWith('refs/tags/')) {
-        // This is a tag event, and you can proceed with your logic
-        //ghcore.info('A version tag exists.');
+    // if (ref && ref.startsWith('refs/tags/')) {
+    //     // This is a tag event, and you can proceed with your logic
+    //     //ghcore.info('A version tag exists.');
+    //     return true;
+    // } else {
+    //     //ghcore.info('No version tag found.');
+    //     return false;
+    // }
+    if (ghcontext.ref && ghcontext.ref.startsWith('refs/tags/'))
+    {
         return true;
-    } else {
-        //ghcore.info('No version tag found.');
+    }
+    else
+    {
         return false;
     }
 }
