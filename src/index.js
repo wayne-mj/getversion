@@ -1,5 +1,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+const semver = require('semver');
+
 const GetVersion = require('./checkversiontag');
 
 if (require.main === module)
