@@ -1,5 +1,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+const semver = require('semver');
+
 const GetVersion = require('./checkversiontag');
 
 if (require.main === module)
@@ -13,7 +15,7 @@ function main()
 {
     try
     {
-        if (GetVersion.checkVersionTag(github.context, core))
+        if (GetVersion.checkVersionTag(github.context))
         {
             let versionFormat = core.getInput('version-format');
             let version = GetVersion.getVersionTag(github.context, versionFormat);

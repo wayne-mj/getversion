@@ -1,5 +1,3 @@
-// test/action.test.js
-
 const core = require('@actions/core');
 const exec = require('@actions/exec');
 const CheckVersionTag = require('../src/checkversiontag');
@@ -25,23 +23,27 @@ const options = {
 }
 
 // Test the checkVersionTag function
-test('Test checkVersionTag', async () => {
-    const result = CheckVersionTag.checkVersionTag(github.context, actions.core);
+test('Test checkVersionTag refs/tags/v1.0.0', async () => {
+    const result = CheckVersionTag.checkVersionTag(github.context);
     expect(result).toBe(true);
 });
 
-// Test the getVersionTag function and see if it returns the correct version
-// depending the version format
-test('Test getVersionTag with-v', async () => {
-    const versionWithV = CheckVersionTag.getVersionTag(github.context, options.withV);
-    expect(versionWithV).toBe('v1.0.0');
+test('Test checkVersionTag refs/head/main', async () => {
+  const result = CheckVersionTag.checkVersionTag('refs/head/main');
+  expect(result).toBe(false);
 });
 
-test('Test getVersionTag without-v', async () => {
-    const versionWithoutV = CheckVersionTag.getVersionTag(github.context, options.withoutV);
-    expect(versionWithoutV).toBe('1.0.0');
-});
-test('Test getVersionTag default', async () => {
-    const versionDefault = CheckVersionTag.getVersionTag(github.context, options.default);
-    expect(versionDefault).toBe('1.0.0');
-});
+test('getVersionTag() returns the version tag from the ref', async () => {
+  expect(CheckVersionTag.readVersionTag(github.context)).toBe("1.0.0");
+}
+);
+
+test('verifyVersionTag() returns false when the version tag is not a valid semver', async () => {
+  expect(CheckVersionTag.verifyVersionTag("a.b.c")).toBe(false);
+}
+);
+
+test('sanitiseVersionTag() returns a valid semver when the version tag is not a valid semver', async () => {
+  expect(CheckVersionTag.sanitiseVersionTag("1.0.0nonsense")).toBe("1.0.0");
+}
+);
