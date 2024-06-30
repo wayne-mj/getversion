@@ -67,7 +67,7 @@ test('Test action called with any options - default to without-v', async () => {
   
     // Add your assertions
     expect(getInputMock ).toHaveBeenCalledWith('version-format');
-    expect(setOutputMock).toHaveBeenCalledWith('release_version', 'v1.0.0');
+    expect(setOutputMock).toHaveBeenCalledWith('release_version', '1.0.0');
   
     // Clean up
     getInputMock .mockRestore();

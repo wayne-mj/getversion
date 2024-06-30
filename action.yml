@@ -4,7 +4,7 @@ inputs:
   version-format:
     description: 'The format of the returned version'
     required: false
-    default: 'without-v'
+    default: 'with-v'
     # Valid options are:
     # without-v: 1.0.0
     # with-v: v1.0.0
