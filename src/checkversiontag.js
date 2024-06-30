@@ -65,7 +65,8 @@ function getVersionTag(ghcontext, versionFormat)
             formattedVersion = tagVersion;
             break;
         default:
-            formattedVersion = tagVersion;
+            // formattedVersion = tagVersion;
+            formattedVersion = `v${tagVersion}`;
             break;
     }
 

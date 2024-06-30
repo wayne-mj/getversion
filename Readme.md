@@ -1,5 +1,9 @@
 ## Get Version
 
+### Update
+
+The default behavior has been changed to return the version without the 'v' prefix.  This is to align with the default behavior of the Github Actions that I have been using.
+
 A small attempt to write a custom Github Action to return the version of my releases as I build them.
 
 *Essentially* a learning exercise in NodeJS, Github Actions, and can I do it.
