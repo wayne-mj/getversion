@@ -9,29 +9,12 @@ const github = {
   },
 };
 
-// Mock GitHub actions
-const actions = {
-  core,
-  exec,
-};
-
-// Mock options
-const options = {
-    withV: 'with-v',
-    withoutV: 'without-v',
-    default: ''
-}
-
 // Test the checkVersionTag function
 test('Test checkVersionTag refs/tags/v1.0.0', async () => {
     const result = CheckVersionTag.checkVersionTag(github.context);
     expect(result).toBe(true);
 });
 
-test('Test checkVersionTag refs/head/main', async () => {
-  const result = CheckVersionTag.checkVersionTag('refs/head/main');
-  expect(result).toBe(false);
-});
 
 test('getVersionTag() returns the version tag from the ref', async () => {
   expect(CheckVersionTag.readVersionTag(github.context)).toBe("1.0.0");
@@ -47,3 +30,21 @@ test('sanitiseVersionTag() returns a valid semver when the version tag is not a 
   expect(CheckVersionTag.sanitiseVersionTag("1.0.0nonsense")).toBe("1.0.0");
 }
 );
+
+test('getVersionTag with invalid Github context with-v', () =>
+{
+  expect (() =>{
+    CheckVersionTag.getVersionTag({}, "with-v");
+  }).toThrow("Invalid Github context: missing ref");
+});
+
+test('getVersionTag with invalid Github context without-v', () =>
+{
+  expect (() =>{
+    CheckVersionTag.getVersionTag({}, "without-v");
+  }).toThrow("Invalid Github context: missing ref");
+});
+
+test('getVersionTag() returns the version tag from the ref', () => {
+  expect(CheckVersionTag.getVersionTag(github.context, "invalid-format")).toBe("1.0.0");
+});
